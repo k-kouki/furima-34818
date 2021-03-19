@@ -5,7 +5,7 @@
 | Column              | Type     | Options        |
 |---------------------|----------|----------------|
 | nickname            | string   | null: false    |
-| email               | string   | null: false    |
+| email               | string   | unique: true   |
 | encrypted_password  | string   | null: false    |
 | first_name          | string   | null: false    |
 | last_name           | string   | null: false    |
@@ -27,7 +27,7 @@
 | category_id      | integer    | null: false       |
 | condition_id     | integer    | null: false       |
 | burden_id        | integer    | null: false       |
-| location_id      | integer    | null: false       |
+| prefecture_id    | integer    | null: false       |
 | shipping_date_id | integer    | null: false       |
 | price            | integer    | null: false       |
 | user             | references | foreign_key: true |
@@ -50,7 +50,7 @@
 - has_one: address
 
 
-## Address名
+## Addresses名
 
 | Column        | Type       | Options            |
 |---------------|------------|--------------------|
@@ -58,7 +58,8 @@
 | prefecture_id | integer    | null:false         |
 | city          | integer    | null: false        |
 | house_number  | string     | null: false        |
-| phone_number  | string     |                    |
+| building_name | string     |                    |
+| phone_number  | string     | null: false        |
 | purchase      | references | foreign_key: true  |
 
 
