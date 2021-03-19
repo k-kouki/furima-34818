@@ -1,24 +1,65 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Users名
 
-Things you may want to cover:
+| Column       | Type     | Options        |
+|--------------|----------|----------------|
+| nickname     | string   | null: false    |
+| email        | string   | unique: true   |
+| password     | string   | null: false    |
+| name         | string   | null: false    |
+| name_reading | string   | null: false    |
+| birthday     | integer  | null: false    |
 
-* Ruby version
+### Association
+- has_many :items
+- has_many :purchases
 
-* System dependencies
 
-* Configuration
+## Items名
 
-* Database creation
+| Column           | Type       | Options           |
+|------------------|------------|-------------------|
+| item_name        | string     | null: false       |
+| image            |            | ActiveStorage     |
+| text             | text       | null: false       |
+| category_id      | integer    | null: false       |
+| condition_id     | integer    | null: false       |
+| burden_id        | integer    | null: false       |
+| location_id      | integer    | null: false       |
+| shipping_date_id | integer    | null: false       |
+| price            | integer    | null: false       |
+| user_id          | references | foreign_key: true |
 
-* Database initialization
+### Association
+- belongs_to :user
+- has_one_attached :purchase
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+## Purchases名
 
-* Deployment instructions
+| Column   | Type       | Options           |
+|----------|------------|-------------------|
+| user_id  | references | foreign_key: true |
+| item_id  | references | foreign_key: true |
 
-* ...
+### Association
+- belongs_to :user
+- belongs_to :item
+- has_one_attached: address
+
+
+## Address名
+
+| Column        | Type       | Options        |
+|---------------|------------|----------------|
+| postal_code   | integer    | null: false    |
+| prefecture_id | integer    | null:false     |
+| city          | integer    | null: false    |
+| house_number  | string     | null: false    |
+| phone_number  | integer    | null: false    |
+| purchase_id   | references | foreign_key    |
+
+
+### Association
+- belongs_to: purchase
