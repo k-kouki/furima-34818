@@ -11,18 +11,22 @@ RSpec.describe PurchaseAddress, type: :model do
     context '商品が購入できる時' do
       it '全ての値が正しく入力されていれば購入できる' do
         expect(@purchase_address).to be_valid
+        sleep 0.1
       end
 
       it '建物名が空欄でも購入できる' do
         @purchase_address.building_name = ''
         expect(@purchase_address).to be_valid
+        sleep 0.1
       end
     end
+
     context '商品の購入ができない時' do
       it '郵便番号が空のとき' do
         @purchase_address.postal_code = ''
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Postal code can't be blank", "Postal code Input correctly")
+        sleep 0.1
       end
 
       it '都道府県が空のとき購入できない' do
@@ -70,6 +74,13 @@ RSpec.describe PurchaseAddress, type: :model do
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Phone number Input only number")
       end
+
+      it 'tokenがなければ購入できない' do
+        @purchase_address.token = nil
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("Token can't be blank")
+      end
+
     end
   end
 end
