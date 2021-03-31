@@ -61,24 +61,55 @@ RSpec.describe PurchaseAddress, type: :model do
         @purchase_address.postal_code = '6360202'
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Postal code Input correctly")
+        sleep 0.1
       end
 
       it '電話番号にハイフン(-)と購入できない' do
         @purchase_address.phone_number = '080-5702-0954'
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Phone number Input only number")
+        sleep 0.1
       end
 
       it '電話番号に文字列を入力すると購入できない' do
         @purchase_address.phone_number = 'あああ'
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Phone number Input only number")
+        sleep 0.1
       end
 
       it 'tokenがなければ購入できない' do
         @purchase_address.token = nil
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Token can't be blank")
+        sleep 0.1
+      end
+
+      it '電話番号が12桁以上だと購入できない' do
+        @purchase_address.phone_number = '090111122223'
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("Phone number Input only number")
+        sleep 0.1
+      end
+
+      it '電話番号が英数混合だと購入できない' do
+        @purchase_address.phone_number = '090aaaabbbb'
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("Phone number Input only number")
+        sleep 0.1
+      end
+
+      it 'user_idが空だと購入できない' do
+        @purchase_address.user_id = ''
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("User can't be blank")
+        sleep 0.1
+      end
+
+      it 'item_idが空だと購入できない' do
+        @purchase_address.item_id = ''
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("Item can't be blank")
       end
 
     end
